@@ -1,2 +1,0 @@
-#!/bin/sh
-curl -X POST -d 'secret' http://zealot.herokuapp.com/i_am_working
