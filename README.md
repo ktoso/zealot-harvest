@@ -9,22 +9,9 @@ You're done installing it! It will be visible under the domain heroku tells you.
 
 How to use?
 ===========
-Check how many minutes are added for each tick, and configure cron to run the `i_am_working` script each time it should.
+Simply use http://www.getharvest.com/ like you would always, then deploy Zealot and configure it (copy the `conf.yml.sample` as `conf.yml` and fill in the details).
 
-Edit your crontab:
-
-```
-crontab -e
-```
-
-To contain such an example script (you may tweak it of course):
-
-```
-MAILTO=""
-*/5 * * * * /home/ktoso/coding/sinatra/zealot/i_am_working > /dev/null
-```
-
-The empty MAILTO variable serves to disable email notications from cron about this task, as they're really not interesting most of the time (and you would get an email every 5 minutes...).
+Deploy to heroku (or wherever you want - as zealot has no dependencies like databases etc), and you're done!
 
 License
 =======
