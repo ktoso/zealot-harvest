@@ -1,0 +1,76 @@
+<script type="text/javascript">
+google.load('visualization', '1', {packages:['imageareachart']});
+google.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Day');
+  data.addColumn('number', 'Hours');
+
+  data.addRows(<%= @week_stats.size %>);
+
+  <% row = 0  %>
+  <% @week_stats.each do |day| %>
+    data.setValue(<%= row %>, 0, '<%= DateTime.parse(day[:created_at]).strftime("%F") %>');
+    data.setValue(<%= row %>, 1, <%= day[:hours] %>);
+    <% row += 1 %>
+  <% end %>
+
+  var chart = new google.visualization.ImageAreaChart(document.getElementById('week'));
+  chart.draw(data, {width: 600, height: 250, min: 0, max: 12, title: 'Time worked this week'});
+}
+</script>
+
+
+<script type="text/javascript">    
+google.load('visualization', '1', {packages:['corechart']});
+google.setOnLoadCallback(drawPie);
+
+function drawPie() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Day');
+  data.addColumn('number', 'Hours');
+
+  data.addRows(<%= @week_stats.size %>);
+  
+  <% row = 0  %>
+  <% @week_stats.each do |day| %>
+    data.setValue(<%= row %>, 0, '<%= DateTime.parse(day[:created_at]).strftime("%F") %>');
+    data.setValue(<%= row %>, 1, <%= day[:hours] %>);
+    <% row += 1 %>
+  <% end %>  
+
+  var chart = new google.visualization.PieChart(document.getElementById('week_pie'));
+  
+  chart.draw(data, {title: 'Time as percentage on day', width: 400, height: 300});
+}
+</script>
+
+
+<h2>This week:</h2>
+<div class="charts">
+  <span id="week"></span>
+  <span id="week_pie"></span>
+</div>
+<div class="<%= @week_green ? 'green' : '' %> right">
+  Total time this week: <strong><%= @week_total_time %></strong> / <%= @week_target_time %> h
+</div>
+<div class="flow_right">
+  <table>
+    <thead>
+      <tr>
+        <td>Day</td>
+        <td>Hours</td>
+      </tr>
+      </thead>
+      <tbody>
+        <% @week_stats.each do |day| %>
+          <% next if day[:hours] == 0  %>
+          <tr>
+            <td><%= DateTime.parse(day[:created_at]).strftime("%F") %></td>
+            <td><%= "#{day[:hours]}" %></td>
+          <tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>

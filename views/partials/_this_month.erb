@@ -1,0 +1,44 @@
+<script type="text/javascript">
+google.load('visualization', '1', {packages: ['corechart']});
+google.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Day');
+  data.addColumn('number', 'Hours sum');
+  data.addColumn('number', 'Target time');
+
+  data.addRows(<%= @month_stats.size %>);
+
+  <% row = 0  %>
+  <% sum = 0 %>
+  <% @month_stats.each do |day| %>
+    <% sum += day[:hours].to_f %>
+    data.setValue(<%= row %>, 0, '<%= day[:when] %>');
+    data.setValue(<%= row %>, 1, <%= sum %>);
+    data.setValue(<%= row %>, 2, <%= @month_target_hours %>);
+    <% row += 1 %>
+  <% end %>
+
+  var chart = new google.visualization.ComboChart(document.getElementById('this_month_culmulative'));
+  chart.draw(data, {
+	                 width: 800, 
+	                 height: 300,
+	                 title: 'Culmulative time chart for this Month',
+	                 seriesType: 'area',
+	                 series: { 1: { type: 'line' } }
+	               }
+  );
+}
+</script>
+
+<h2>This month:</h2>
+<div class="charts">
+  <div id="this_month_culmulative" style="width: 100%;"></div>
+</div>
+
+<div class="right">  
+  <div class="<%= @week_green ? 'green' : '' %> right">
+    Total time this month: <strong><%= @month_total_time %></strong> / <%= @month_target_time %> h
+  </div>
+</div>

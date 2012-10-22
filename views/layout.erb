@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Zealot - simple worktime visualization</title>
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="shortcut icon" href="/images/favicon.gif" />
+
+    <link href='http://fonts.googleapis.com/css?family=Expletus+Sans:700italic,400' rel='stylesheet' type='text/css'>
+    <style>
+      body {
+        margin: 0;
+        padding: 10px 0;
+      }
+
+      h1,h2,h3,h4 {
+        font-family: 'Expletus Sans', cursive;
+        text-align: center;
+        width: 100%;
+        float: left;
+        clear: both;
+      }
+      h4 {
+        margin: 0;
+        margin-bottom: 1em;
+        font-style: italic;
+      }
+
+      #container {
+        width: 80%;
+        margin: 0 auto;
+        float: none;
+        clear: none;
+      }
+
+      div.right {
+        text-align: right;
+        width: 100%;
+      }
+
+      .flow_right {
+        float: right;
+      }
+
+      thead tr {
+        font-weight: bold;
+        background: #F0F0F0;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Zealot</h1>
+      <h4>I code for Aiur!</h4>
+      <%= yield %>
+    </div>
+  </body>
+</html>
