@@ -10,7 +10,7 @@ How to install?
 1. Get a **heroku** account.
 2. `cd` to here
 3. `heroku create my-awesome-time-tracker`
-4. git push heroku master
+4. `git push heroku master`
 
 You're done installing it! It will be visible under the domain heroku tells you.
 
